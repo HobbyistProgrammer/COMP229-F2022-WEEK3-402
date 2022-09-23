@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // Way for express to understand different URL's (Mac, windows).
 
 app.use(cookieParser());
-app.use(expres.static(path.join(__dirname, '../public'))); 
+app.use(express.static(path.join(__dirname, '../public'))); 
 // secret encrypts local data
 app.use(session({
     secret: 'MySecret',
