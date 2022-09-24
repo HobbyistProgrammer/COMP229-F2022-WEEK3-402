@@ -15,11 +15,14 @@ import path, {dirname} from 'path';
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// Import Router
+import indexRouter from './app/routes/index.route.server.js';
+
 // instantiate app-server
 const app = express();
 
 //setup ViewEngine VJS
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
@@ -35,23 +38,8 @@ app.use(session({
     resave: false
 }));
 
-
-
-// custom middleware
-function HelloWorld(req, res, next){
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World');
-}
-
-// custom middleware
-function ByeWorld(req, res, next){
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Goodbye World');
-}
-
-// add middleware to connect application
-app.use('/hello', HelloWorld);
-app.use('bye', ByeWorld);
+// Use Routes
+app.use('/', indexRouter);
 
 app.listen(3000);
 
